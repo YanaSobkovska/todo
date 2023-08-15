@@ -53,7 +53,7 @@ export default {
     addTask() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.ADD_TASK(this.form);
+          this.ADD_TASK({ ...this.form, done: false, id: Math.random() });
           this.form = {};
         }
       });

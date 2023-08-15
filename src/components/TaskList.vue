@@ -81,9 +81,6 @@ export default {
 	data() {
 		return {
 			dialogVisible: false,
-			editModeTaskId: null,
-			editModeTaskName: "",
-			editModeTaskDescription: "",
 			selectedCategory : "All",
 			editForm: {}
 		};
@@ -99,13 +96,13 @@ export default {
 		},
 	},
 	methods: {
-		...mapMutations(["DELETE_TASK", "DONE_TASK"]),
+		...mapMutations(["DELETE_TASK", "DONE_TASK", 'SAVE_EDITED_TASK']),
 		setSelectedCategory(category) {
 			this.selectedCategory  = category;
 		},
 		toggleEditMode(task) {
 			if (this.editForm.id === task.id) {
-				
+        this.SAVE_EDITED_TASK(this.editForm)
 				this.editForm = {};
 			} else {
 				this.editForm = {...task}
