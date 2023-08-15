@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CreateTask />
+    <TaskList />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CreateTask from '@/components/CreateTask.vue';
+import TaskList from '@/components/TaskList.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    CreateTask,
+    TaskList,
+  },
+};
 </script>
 
 <style>
@@ -24,5 +26,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  word-wrap: break-word; /* Дозволяє переносити слова, які перевищують ширину блоку */
+  overflow: hidden;
 }
 </style>
