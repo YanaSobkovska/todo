@@ -1,8 +1,10 @@
 <template>
 	<div class="container">
 		<div class="task-list">
+			<!-- component -->
 			<div class="task-list-button-filter">
 				<el-button
+					size="small"
 					@click="setSelectedCategory('All')"
 					class="btn-filter"
 					type="success"
@@ -10,6 +12,7 @@
 					>All</el-button
 				>
 				<el-button
+					size="small"
 					@click="setSelectedCategory('Done')"
 					class="btn-filter"
 					type="success"
@@ -17,6 +20,7 @@
 					>Completed tasks</el-button
 				>
 			</div>
+			<!-- component -->
 			<div class="list-item" v-for="(task, index) in filteredList" :key="index">
 				<div class="list-item-task">
 					<h3 class="task-name">
@@ -35,6 +39,7 @@
 				</div>
 				<div class="list-item-button">
 					<el-button
+						:title="message.done"
 						@click="doneTask(task)"
 						:type="checkTypeButton(task)"
 						icon="el-icon-check"
@@ -42,15 +47,15 @@
 					>
 					</el-button>
 					<el-button
+						:title="message.edit"
 						@click="toggleEditMode(task)"
 						:type="editForm.id === task.id ? 'primary' : ''"
-						:icon="
-							editForm.id === task.id ? 'el-icon-check' : 'el-icon-edit'
-						"
+						:icon="editForm.id === task.id ? 'el-icon-check' : 'el-icon-edit'"
 						circle
 					>
 					</el-button>
 					<el-button
+						:title="message.delete"
 						@click="dialogVisible = true"
 						type="danger"
 						icon="el-icon-delete"
@@ -58,11 +63,11 @@
 					>
 					</el-button>
 				</div>
-				<el-dialog :visible.sync="dialogVisible" width="30%">
+				<el-dialog :visible.sync="dialogVisible" width="50%">
 					<span>You are sure that you want to delete the task</span>
 					<span slot="footer" class="dialog-footer">
 						<el-button @click="dialogVisible = false">Cancel</el-button>
-						<el-button type="primary" @click="deleteItem(task.id)"
+						<el-button type="primary" @click.prevent="deleteItem(task.id)"
 							>Yes</el-button
 						>
 					</span>
@@ -81,31 +86,36 @@ export default {
 	data() {
 		return {
 			dialogVisible: false,
-			selectedCategory : "All",
-			editForm: {}
+			selectedCategory: "All",
+			editForm: {},
+			message: {
+				done: "The task is completed",
+				edit: "Edit the task",
+				delete: "Delete a task",
+			},
 		};
 	},
 	computed: {
 		...mapState(["taskList"]),
-    filteredList() {
-      if (this.selectedCategory  === 'All') {
-        return this.taskList;
-      } else if (this.selectedCategory  === 'Done') {
-        return this.taskList.filter(task => task.done);
-      }
+		filteredList() {
+			if (this.selectedCategory === "All") {
+				return this.taskList;
+			} else if (this.selectedCategory === "Done") {
+				return this.taskList.filter((task) => task.done);
+			}
 		},
 	},
 	methods: {
-		...mapMutations(["DELETE_TASK", "DONE_TASK", 'SAVE_EDITED_TASK']),
+		...mapMutations(["DELETE_TASK", "DONE_TASK", "SAVE_EDITED_TASK"]),
 		setSelectedCategory(category) {
-			this.selectedCategory  = category;
+			this.selectedCategory = category;
 		},
 		toggleEditMode(task) {
 			if (this.editForm.id === task.id) {
-        this.SAVE_EDITED_TASK(this.editForm)
+				this.SAVE_EDITED_TASK(this.editForm);
 				this.editForm = {};
 			} else {
-				this.editForm = {...task}
+				this.editForm = { ...task };
 			}
 		},
 		doneTask(task) {

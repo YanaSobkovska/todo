@@ -25,7 +25,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin-top: 60px;
-  word-wrap: break-word; /* Дозволяє переносити слова, які перевищують ширину блоку */
   overflow: hidden;
 }
 </style>
