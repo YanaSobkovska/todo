@@ -63,7 +63,6 @@ export default {
 	newTaskId() {
       const timestamp = Date.now().toString(36); // Поточний час у системі з конвертацією до 36-кової системи числення
       const randomPart = Math.random().toString(36).substr(2, 5); // Випадкова частина
-
       return timestamp + randomPart;
     },
   },
@@ -86,5 +85,10 @@ h1 {
   color: rgb(114, 115, 116);
   width: 100%;
   border-bottom: 1px solid rgb(218, 213, 213);
+}
+@media (max-width: 425px){
+  h1{
+font-size: 20px;
+  }
 }
 </style>

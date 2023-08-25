@@ -14,13 +14,9 @@ export default new Vuex.Store({
 			taskList.push(newObj);
 		},
 		DELETE_TASK(state,taskId) {
-			// state.taskList.splice(index,1)
-      console.log(state.taskList, 'old');
-      console.log(taskId, '123');
       state.taskList = state.taskList.filter(item => {
         return item.id !== taskId
       })
-			console.log(state.taskList, 'new');
 		},
 		DONE_TASK({ taskList }, task) {
 			taskList.forEach((item) => {
